@@ -1,0 +1,42 @@
+import re
+
+firstline = [] 
+secondline = []
+lines = []
+thirdline = []
+
+def arithmetic_arranger(problems, estate=False):
+  if len(problems) < 5:
+    for i in problems:
+      if re.search('[a-z]', i) is None:
+        calcData = i.split()
+        if len(calcData[0])<5 and len(calcData[2])<5:
+          space_data = max(len(calcData[0]) , len(calcData[2]))+2
+          if (len(firstline) > 0): 
+            lines.append(" "*4)
+          lines.append("-"*space_data)
+          if calcData[1] == "+":
+            calc = str(int(calcData[0]) + int(calcData[2]))
+          elif calcData[1] == "-":
+            calc = str(int(calcData[0]) - int(calcData[2]))
+          else:
+            return "Error: Operator must be \'+\' or \'-\'."
+          if (len(firstline) > 0):
+            firstline.append(" "*4)
+            secondline.append(" "*4)
+            thirdline.append(" "*4)
+          firstline.append(" "*(space_data-len(calcData[0])) + calcData[0])
+          secondline.append(calcData[1]+" "*(space_data-len(calcData[2])-1) + calcData[2])
+          thirdline.append(" "*(space_data-len(calc)) + calc)
+        else: 
+          return "Error: Numbers cannot be more than four digits."
+      else:
+        return "Error: Numbers must only contain digits."
+    if estate:
+      resultado  = "".join(firstline) + "\n" + "".join(secondline)+ "\n" + "".join(lines)+ "\n" + "".join(thirdline)
+    else:
+      resultado  = "".join(firstline) + "\n" + "".join(secondline)+ "\n" + "".join(lines)
+    print(resultado)
+    return resultado
+  else:
+    return "Error: Too many problems."
